@@ -1,0 +1,9 @@
+# Never publish ROMs or local save data
+*.gb
+*.gbc
+*.sav
+*.srm
+*.state
+*.state.json
+.DS_Store
+Thumbs.db
