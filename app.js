@@ -85,7 +85,12 @@ function loadDeviceFile(index){var f=deviceRoms[index];if(!f)return;loadFile(f);
 var joy={ArrowRight:0,ArrowLeft:1,ArrowUp:2,ArrowDown:3,SoftRight:4,SoftLeft:5,"1":6,"2":7};
 function joyDown(k){if(gameboy&&joy[k]!==undefined)gameboy.JoyPadEvent(joy[k],true);}
 function joyUp(k){if(gameboy&&joy[k]!==undefined)gameboy.JoyPadEvent(joy[k],false);}
-function normalizeKey(k){if(k==="Multiply"||k==="NumpadMultiply")return "*";return k;}
+function normalizeKey(k){
+  if(k==="Multiply"||k==="NumpadMultiply")return "*";
+  if(k==="z"||k==="Z")return "SoftLeft";
+  if(k==="x"||k==="X")return "SoftRight";
+  return k;
+}
 
 function menuRows(mode){
  if(mode==="games"){var g=["Choose ROM file"];if(hasDeviceStorage())g.push("Browse phone storage");if(currentRomBytes)g.push("Resume: "+currentRomName);return g;}
