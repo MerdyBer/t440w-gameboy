@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+<title>T440W GB/GBC v0.7</title>
+</head>
+<body>
+<main id="app" aria-label="Game Boy and Game Boy Color emulator">
+  <div id="screenWrap"><canvas id="mainCanvas" width="160" height="144" aria-label="Game screen"></canvas></div>
+  <div id="status" aria-live="polite"></div>
+
+  <section id="startup" aria-label="Startup controls">
+    <div class="startupTitle">GB / GBC EMULATOR</div>
+    <div class="startupSub">TCL T440W CONTROLS</div>
+    <div class="controlsGrid">
+      <div>D-pad</div><div>Directions</div><div>Left dot</div><div>B</div>
+      <div>Right dot</div><div>A</div><div>1</div><div>Select</div>
+      <div>2</div><div>Start</div><div>3</div><div>Fast-forward</div>
+      <div>4</div><div>Mute</div><div>6</div><div>Reset</div>
+      <div>7</div><div>Load state</div><div>8</div><div>Game selection</div>
+      <div>9</div><div>Save state</div><div>OK</div><div>Fullscreen</div>
+      <div>*</div><div>Emulator menu</div><div>5 / #</div><div>Unused</div>
+    </div>
+    <div id="startupFooter"><span id="startupLoad">Loading emulator…</span> <span id="countdown">10</span></div>
+  </section>
+
+  <section id="overlay" class="hidden" aria-live="polite"><div id="panel"></div></section>
+  <input id="romFile" type="file" accept=".gb,.gbc,application/octet-stream" class="fileInput" aria-label="Choose Game Boy ROM">
+</main>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+ROM / PRIVACY NOTE
+
+This package contains NO commercial game ROMs.
+
+The emulator's file picker reads the ROM chosen by the user into browser memory.
+The wrapper does not upload the ROM to GitHub or to a server.
+
+Do not add commercial ROMs to the public GitHub repository.

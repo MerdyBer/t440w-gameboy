@@ -1,0 +1,20 @@
+GITHUB UPLOAD CHECKLIST - DO NOT DO THIS UNTIL CHATGPT SAYS THE PACKAGE PASSED QA
+
+1. Extract this ZIP on the Windows computer.
+2. Open the extracted folder.
+3. Upload the CONTENTS of this folder to the root of a public GitHub repository.
+   Do not upload the outer folder as one nested folder.
+4. Never upload .gb or .gbc ROM files.
+5. GitHub repository Settings -> Pages:
+   Source: Deploy from a branch
+   Branch: main
+   Folder: /(root)
+6. Save.
+7. Wait for GitHub Pages to show the Visit site button.
+8. Open the site on a normal computer first.
+9. Confirm the 10-second control screen appears.
+10. Press 8 and choose a legally obtained .gb/.gbc ROM from the computer.
+11. Only after the computer test works, open the same HTTPS address on the TCL.
+
+Expected URL shape:
+https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPOSITORY-NAME/

@@ -1,0 +1,10 @@
+Build: v0.7 GitHub Pages Ready
+Target: TCL T440W / KaiOS 4
+Viewport: 320x240
+ROM types: .gb, .gbc
+ROMs included: NO
+Startup control screen: 10 seconds
+Local core bundled: NO
+Online core fallback: YES
+Offline shell: YES
+Per-ROM SRAM/RTC/state storage: YES

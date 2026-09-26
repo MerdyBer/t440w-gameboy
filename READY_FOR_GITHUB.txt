@@ -1,0 +1,21 @@
+READY FOR GITHUB PAGES - v0.7
+
+This folder passed the final pre-upload checks:
+- JavaScript syntax
+- KaiOS 4 manifest structure
+- 320x240 layout
+- 10-second startup screen
+- locked keypad mapping
+- Crystal 2 MB FileReader path
+- save/load wrapper behavior
+- GitHub Pages repository-subfolder path resolution
+- service-worker shell asset resolution
+- icon dimensions
+- no ROM files included
+
+Upload the CONTENTS of this folder to the root of the GitHub repository.
+Do not add .gb or .gbc files to the repository.
+
+Remaining real-world validation:
+Actual Game Boy CPU/audio/video execution and TCL-specific hardware behavior
+must still be confirmed after the site is hosted.
