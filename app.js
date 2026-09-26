@@ -24,6 +24,28 @@ var settings=[
 // GameBoy-Online is a classic script and reads these as globals.
 window.settings=settings;
 window.GameBoyWindow=window;
+ // Compatibility layer for the old GameBoy-Online audio engine.
+(function(){
+  try{
+    if(!window.AudioContext && window.webkitAudioContext){
+      window.AudioContext=window.webkitAudioContext;
+    }
+
+    var AC=window.AudioContext;
+    if(AC && AC.prototype &&
+       !AC.prototype.createJavaScriptNode &&
+       AC.prototype.createScriptProcessor){
+      AC.prototype.createJavaScriptNode=AC.prototype.createScriptProcessor;
+    }
+
+    var sourceProto=window.AudioBufferSourceNode &&
+                    window.AudioBufferSourceNode.prototype;
+
+    if(sourceProto && !sourceProto.noteOn && sourceProto.start){
+      sourceProto.noteOn=sourceProto.start;
+    }
+  }catch(e){}
+})();
 var canvas=document.getElementById("mainCanvas"), statusEl=document.getElementById("status"), overlay=document.getElementById("overlay"), panel=document.getElementById("panel"), startup=document.getElementById("startup"), countdown=document.getElementById("countdown"), startupFooter=document.getElementById("startupFooter"), startupLoad=document.getElementById("startupLoad"), fileInput=document.getElementById("romFile");
 var gameboy=null,gbRunInterval=null,currentRomBytes=null,currentRomId="",currentRomName="",muted=false,ffHeld=false,resetTimer=null,pressed=Object.create(null),overlayMode=null,selection=0,coreReady=false,coreFailed=false,startupDone=false,deviceRoms=[],deviceScanBusy=false,coreMode="loading",coreError="";
 var batteryCache={};
