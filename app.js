@@ -24,6 +24,33 @@ var settings=[
 // GameBoy-Online is a classic script and reads these as globals.
 window.settings=settings;
 window.GameBoyWindow=window;
+ var t440wAudioContexts=[];
+window.__T440WAudioContexts=t440wAudioContexts;
+
+(function(){
+  var NativeAC=window.AudioContext||window.webkitAudioContext;
+  if(!NativeAC)return;
+
+  if(!NativeAC.prototype.createJavaScriptNode &&
+     NativeAC.prototype.createScriptProcessor){
+    NativeAC.prototype.createJavaScriptNode=
+      NativeAC.prototype.createScriptProcessor;
+  }
+
+  var sourceProto=
+    window.AudioBufferSourceNode &&
+    window.AudioBufferSourceNode.prototype;
+
+  if(sourceProto && !sourceProto.noteOn && sourceProto.start){
+    sourceProto.noteOn=sourceProto.start;
+  }
+
+  window.GameBoyAudioContext=function(){
+    var ctx=new NativeAC();
+    t440wAudioContexts.push(ctx);
+    return ctx;
+  };
+})();
  // Compatibility layer for the old GameBoy-Online audio engine.
 (function(){
   try{
@@ -52,7 +79,36 @@ var batteryCache={};
 
 function cout(msg,level){if(level>=1&&window.console)console.log("T440W GB:",msg);} window.cout=cout;
 function status(msg,ms){statusEl.textContent=msg||"";clearTimeout(status._t);if(ms)status._t=setTimeout(function(){statusEl.textContent="";},ms);}
-function unlockAudio(){try{if(window.audioContextHandle&&typeof window.audioContextHandle.resume==="function"&&window.audioContextHandle.state==="suspended")window.audioContextHandle.resume();}catch(e){}try{var h=gameboy&&gameboy.audioHandle;if(h&&h.audioContext&&typeof h.audioContext.resume==="function"&&h.audioContext.state==="suspended")h.audioContext.resume();}catch(e){}}
+function unlockAudio(){
+  var list=window.__T440WAudioContexts||[];
+
+  for(var i=0;i<list.length;i++){
+    try{
+      if(list[i] &&
+         typeof list[i].resume==="function" &&
+         list[i].state!=="running"){
+        list[i].resume();
+      }
+    }catch(e){}
+  }
+
+  try{
+    if(window.audioContextHandle &&
+       typeof window.audioContextHandle.resume==="function" &&
+       window.audioContextHandle.state==="suspended"){
+      window.audioContextHandle.resume();
+    }
+  }catch(e){}
+
+  try{
+    var h=gameboy&&gameboy.audioHandle;
+    if(h&&h.audioContext&&
+       typeof h.audioContext.resume==="function" &&
+       h.audioContext.state==="suspended"){
+      h.audioContext.resume();
+    }
+  }catch(e){}
+}
 function initNewCanvas(){canvas.width=160;canvas.height=144;} window.initNewCanvas=initNewCanvas; window.initNewCanvasSize=initNewCanvas;
 function pause(){if(gameboy)gameboy.stopEmulator|=2;if(gbRunInterval){clearInterval(gbRunInterval);gbRunInterval=null;}}
 function binaryString(bytes){var out="",chunk=0x4000;for(var i=0;i<bytes.length;i+=chunk)out+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+chunk,bytes.length)));return out;}
